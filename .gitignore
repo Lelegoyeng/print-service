@@ -1,0 +1,4 @@
+jar/
+.env
+node_modules/*
+tmp/*
