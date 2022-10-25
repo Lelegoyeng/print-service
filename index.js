@@ -209,8 +209,8 @@ app.get('/', (req, res) => {
 	})
 })
 
-var host = '192.168.0.26'
-var port = 9000
+var host = process.env.HOST;
+var port = process.env.PORT;
 app.listen(port, host, function () {
 	console.log("Example app listening at http://%s:%s", host, port)
 })
