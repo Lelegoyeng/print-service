@@ -8,6 +8,7 @@ const html_to_pdf = require('html-pdf-node');
 const { getPrinters, print } = require("pdf-to-printer");
 var pdf = require("html-pdf-lts");
 const { formatDateOnly } = require('./helper');
+require('dotenv').config();
 
 var app = express();
 app.use(cors());
@@ -93,7 +94,7 @@ app.post("/print2", (req, res) => {
 	} = req.body;
 
 	const printerSet = printer || "EPSON LQ-310 ESC/P2";
-	const paperSizeSet = paperSize || "invoice2";
+	const paperSizeSet = paperSize || "invoice";
 
 	const pdfOption =  {
 		"directory": tmp+"/print2.pdf",
@@ -134,8 +135,10 @@ app.post("/print2", (req, res) => {
 
 	pdf.create(html, pdfOption).toFile(tmp+"/print2.pdf", function (err, result) {
 		if (err) return console.log(err);
-
-		const sumatraCommand = smtdir+'/sumatrapdf.exe -silent -print-to "'+printerSet+'" -print-settings "'+orientation+',paper='+paperSizeSet+'" '+tmp+'/print2.pdf'
+		
+		
+		const Sorientation = orientation || "portrait";
+		const sumatraCommand = smtdir+'/sumatrapdf.exe -silent -print-to "'+printerSet+'" -print-settings "'+Sorientation+',paper='+paperSizeSet+'" '+tmp+'/print2.pdf'
 		exec(sumatraCommand, (err, stdout, stderr) => {
 			if (err) {
 				console.log(err)
