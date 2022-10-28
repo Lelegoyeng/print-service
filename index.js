@@ -8,6 +8,7 @@ const html_to_pdf = require('html-pdf-node');
 const { getPrinters, print } = require("pdf-to-printer");
 var pdf = require("html-pdf-lts");
 const { formatDateOnly } = require('./helper');
+const https = require('https');
 require('dotenv').config();
 
 var app = express();
@@ -214,7 +215,16 @@ app.get('/', (req, res) => {
 
 var host = process.env.HOST;
 var port = process.env.PORT;
-app.listen(port, host, function () {
-	console.log("Example app listening at http://%s:%s", host, port)
-})
+// app.listen(port, host, function () {
+// 	console.log("Example app listening at http://%s:%s", host, port)
+// })
+
+var options = {
+  key: fs.readFileSync('./cert/CA2/key.pem'),
+  cert: fs.readFileSync('./cert/CA2/cert.pem')
+};
+
+https.createServer(options, app).listen(port, host, ()=> {
+	console.log('running https')
+});
 // https://nayzawlin.info/2020/05/02/how-to-auto-start-pm2-with-node-application-on-windows-after-reboot/
