@@ -140,6 +140,10 @@ app.post("/print2", (req, res) => {
 		
 		const Sorientation = orientation || "portrait";
 		const sumatraCommand = smtdir+'/sumatrapdf.exe -silent -print-to "'+printerSet+'" -print-settings "'+Sorientation+',paper='+paperSizeSet+'" '+tmp+'/print2.pdf'
+
+
+		console.log(sumatraCommand)
+		// return res.status(200).json({message: 'ok'})
 		exec(sumatraCommand, (err, stdout, stderr) => {
 			if (err) {
 				console.log(err)
