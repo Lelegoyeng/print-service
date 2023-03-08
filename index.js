@@ -138,7 +138,7 @@ app.post("/print2", (req, res) => {
 		if (err) return console.log(err);
 		
 		
-		const Sorientation = orientation === 'landscape' ? 'portrait' : 'landscape' || "portrait";
+		const Sorientation = orientation === 'landscape' ? 'portrait' : orientation || "portrait";
 		const sumatraCommand = smtdir+'/sumatrapdf.exe -silent -print-to "'+printerSet+'" -print-settings "'+Sorientation+',paper='+paperSizeSet+'" '+tmp+'/print2.pdf'
 		// const sumatraCommand = smtdir+'/sumatrapdf.exe -print-to "'+printerSet+'" -print-settings "'+Sorientation+',paper='+paperSizeSet+'" '+tmp+'/print2.pdf';
 
